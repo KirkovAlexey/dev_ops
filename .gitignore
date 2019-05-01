@@ -22,4 +22,3 @@ test/
 tmp/
 vendor/
 yarn.lock
-config/database.yml.sample
