@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  app:
+    image: kirkov/rails_test_app:v1.0.0
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=postgres
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=sample_app_production
+    ports:
+      - 5431:5432
+  web:
+    image: nginx:latest
+    depends_on:
+      - app
+    ports:
+      - 80:80
+    environment:
+      - HTTP_HOST=website.com
+volumes:
+  postgres:

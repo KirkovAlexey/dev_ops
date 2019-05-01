@@ -12,3 +12,5 @@ Vagrantfile
 /public/assets
 .byebug_history
 /config/master.key
+Dockerfile.nginx
+docker-compose.yml
