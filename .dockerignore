@@ -14,3 +14,4 @@ Vagrantfile
 /config/master.key
 Dockerfile.nginx
 docker-compose.yml
+.bundle

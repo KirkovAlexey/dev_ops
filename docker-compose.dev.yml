@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  app:
+    image: rails_test_app:latest
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=postgres
+      - RAILS_ENV=development
+    depends_on:
+      - postgres
+    command: >
+      /bin/bash -c "
+        bundle install --with development:test:assets
+        yarn install
+        rails db:create && rails db:migrate && rails s -b 0.0.0.0"
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=sample_app_development
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5431:5432
+volumes:
+  postgres:
