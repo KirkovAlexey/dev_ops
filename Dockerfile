@@ -4,6 +4,8 @@ LABEL maintainer="Alexey Kirkov <kirkov.alexey@gmail.com>"
 ARG RAILS_ROOT=/app
 ARG DEV_PACKAGES="postgresql-client nodejs yarn"
 ARG SECRET_KEY
+ARG YARN_PARAMS="--production"
+ARG BUNDLE_PARAMS="--without development:test:assets"
 
 ENV RAILS_ENV=production
 ENV NODE_ENV=production
@@ -22,14 +24,14 @@ COPY Gemfile* package.json yarn.lock $RAILS_ROOT/
 
 RUN gem install bundler -v '2.0.1'
 RUN bundle config --global frozen 1 \
-    && bundle install --without development:test:assets
+    && bundle install $BUNDLE_PARAMS
 
-RUN yarn install --production
+RUN yarn install $YARN_PARAMS
 COPY ./ $RAILS_ROOT/
 RUN cp config/database.yml.sample config/database.yml
 RUN bundle exec rails assets:precompile
 RUN bundle exec rails webpacker:compile
 
-RUN rm -rf node_modules tmp/cache app/assets vendor/assets spec
+RUN rm -rf /app/tmp/pids/server.pid node_modules tmp/cache app/assets vendor/assets spec
 
 CMD rails db:create && rails db:migrate && rails server -b 0.0.0.0

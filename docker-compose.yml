@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   app:
-    image: kirkov/rails_test_app:v1.0.0
+    image: kirkov/rails_test_app:v1.0.1
     ports:
       - 3000:3000
     environment:

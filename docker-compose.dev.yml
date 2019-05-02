@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   app:
-    image: rails_test_app:latest
+    build: .
     ports:
       - 3000:3000
     environment:
