@@ -1,0 +1,11 @@
+FROM nginx:1.15.12
+
+ARG RAILS_ROOT=/app
+WORKDIR $RAILS_ROOT
+RUN mkdir log
+COPY public public/
+
+EXPOSE 80
+CMD cp website.com.conf /tmp/docker.nginx && \
+    envsubst '$RAILS_ROOT' < /tmp/docker.nginx > /etc/nginx/conf.d/default.conf && \
+    nginx -g daemon off
