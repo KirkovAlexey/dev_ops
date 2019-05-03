@@ -1,0 +1,12 @@
+---
+
+- hosts: appservers
+  user: vagrant
+  sudo: True
+
+  tasks:
+  - name: Copy config file
+    copy: src=../../docker-compose.yml dest=/home/vagrant
+
+  - name: Run file
+    command: DB_HOST=192.168.0.200 sudo docker-compose -f /home/vagrant/docker-compose.yml up -d

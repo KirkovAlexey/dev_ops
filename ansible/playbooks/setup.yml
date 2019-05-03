@@ -1,0 +1,12 @@
+---
+- hosts: appservers
+  become: true
+
+  roles:
+    - geerlingguy.docker
+
+- hosts: dbservers
+  become: true
+
+  roles:
+    - geerlingguy.postgresql
